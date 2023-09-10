@@ -1,0 +1,43 @@
+To create a Shift key functionality for VR in Roblox Studio, you can use the following code as an example:
+
+```lua
+-- Get the Player
+local Players = game:GetService("Players")
+local VRService = game:GetService("VRService")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Create a BoolValue to track if Shift key is pressed
+local shiftPressed = Instance.new("BoolValue")
+shiftPressed.Name = "ShiftDown"
+shiftPressed.Parent = player
+
+-- Function to handle Shift key state
+local function updateShiftState()
+    local shiftDown = VRService:GetUserCFrame(Enum.UserCFrame.Head).Y > 0 -- Assuming shift key is pressed when Head goes above a certain height (i.e., player stands up)
+    shiftPressed.Value = shiftDown
+end
+
+-- Connect the input events to the function
+VRService.UserCFrameChanged:Connect(updateShiftState)
+
+-- Check if Shift key is being pressed in a loop
+while humanoid.Parent do
+    if shiftPressed.Value then
+        -- Shift key is pressed, do something
+        -- For example, increase player speed
+        -- Place your actions when Shift key is pressed here
+        humanoid.WalkSpeed = 16
+    else
+        humanoid.WalkSpeed = 8 -- Reset player speed when Shift key is not pressed
+    end
+    wait()
+end
+```
+
+This code sets up a Shift key functionality for VR players in your Roblox game. It uses the `VRService` to track the position of the player's head in VR space. When the head position goes above a certain height, it updates the value of a `BoolValue` named "ShiftDown" accordingly.
+
+You can then check the value of this variable in a loop to perform specific actions, such as increasing player speed when the Shift key is pressed. In this example, we set the player's `WalkSpeed` property to 16 when the Shift key is pressed, and reset it to 8 when the Shift key is released.
+
+Make sure to place this code inside a script (e.g., in a LocalScript) within your Roblox Studio project to enable the Shift key functionality for VR players.

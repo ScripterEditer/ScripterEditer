@@ -1,0 +1,51 @@
+To create a reloading key for Xbox in Roblox Studio, you can use the following code as an example:
+
+```lua
+-- Get the Player
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Define the Reload Key Code
+local RELOAD_KEY_CODE = Enum.KeyCode.R
+
+-- Create a BoolValue to track if Reload key is pressed
+local reloadPressed = Instance.new("BoolValue")
+reloadPressed.Name = "ReloadPressed"
+reloadPressed.Parent = player
+
+-- Function to handle Reload key pressed event
+local function onKeyPress(input)
+    if input.KeyCode == RELOAD_KEY_CODE then
+        reloadPressed.Value = true
+    end
+end
+
+-- Function to handle Reload key released event
+local function onKeyRelease(input)
+    if input.KeyCode == RELOAD_KEY_CODE then
+        reloadPressed.Value = false
+    end
+end
+
+-- Connect the input events to the functions
+player:GetMouse().KeyDown:Connect(onKeyPress)
+player:GetMouse().KeyUp:Connect(onKeyRelease)
+
+-- Check if Reload key is being pressed in a loop
+while humanoid.Parent do
+    if reloadPressed.Value then
+        -- Reload key is pressed, do something
+        -- For example, reload weapon
+        -- Place your reloading logic here
+        print("Reloading...")
+        wait(2) -- Simulating reload time
+        print("Reloaded!")
+    end
+    wait()
+end
+```
+
+This code sets up a reloading key functionality for Xbox players in your Roblox game. It listens for the reload key down and up events, updating the value of a `BoolValue` named "ReloadPressed" accordingly. You can then check the value of this variable in a loop to perform specific actions, such as reloading a weapon.
+
+Make sure to place this code inside a script (e.g., in a LocalScript) within your Roblox Studio project to enable the reloading key functionality for Xbox players.

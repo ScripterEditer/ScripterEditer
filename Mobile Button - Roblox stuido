@@ -1,0 +1,44 @@
+Yes, it is possible to create a script in Roblox that allows for a keyboard button to be used on mobile devices. Here's an example of how you can achieve this:
+
+1. First, create a script in a LocalScript object in Roblox Studio and place it in a StarterPlayerScripts or StarterCharacterScripts folder.
+
+2. Inside the script, add the following code:
+
+```lua
+-- Check if the device is a mobile device
+local userInputService = game:GetService("UserInputService")
+local isMobile = userInputService.TouchEnabled
+
+-- Create a GUI button for the keyboard button
+local button = Instance.new("TextButton")
+button.Position = UDim2.new(0, 100, 0, 100) -- Set the position of the button
+button.Size = UDim2.new(0, 100, 0, 50) -- Set the size of the button
+button.Text = "Keyboard Button" -- Set the text on the button
+
+-- Function to trigger the button press
+local function onKeyDown(keyCode)
+    if keyCode == Enum.KeyCode.B then -- Replace B with the desired key
+        -- Replace this block with the actions you want to occur when the button is pressed
+        print("Button pressed!")
+    end
+end
+
+-- Connect the button press function to the button's MouseButton1Down event
+button.MouseButton1Down:Connect(function()
+    onKeyDown(Enum.KeyCode.B)
+end)
+
+-- Add the button to the PlayerGui if the device is a mobile device
+local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+if isMobile then
+    button.Parent = playerGui
+end
+```
+
+3. Customize the code to fit your needs. You can change the position, size, and text of the button by modifying the relevant properties in the script.
+
+4. Replace the block inside the `onKeyDown` function with the actions you want to occur when the button is pressed. In the provided example, it simply prints a message to the output.
+
+5. Lastly, make sure to replace the `Enum.KeyCode.B` with the desired keyboard button you want to map to the mobile button. You can find a list of supported keyboard buttons in the Roblox API documentation.
+
+Once you have added this script to your game, Roblox Studio will automatically upload and run it when you test your game on a mobile device. You should be able to see and interact with the keyboard button on the screen and trigger the assigned actions when pressed.

@@ -1,0 +1,35 @@
+Creating a WASD button for mobile in Roblox Studio can be achieved using the UserInputService and the GUI system. Here's a step-by-step guide:
+
+1. Insert a TextButton into the StarterGui or wherever you want to place the WASD button in the game UI.
+
+2. Select the TextButton and rename it to something like "WASDButton".
+
+3. Right-click the WASDButton and select "Script" from the context menu to open a new script.
+
+4. In the script, add the following code:
+
+```lua
+local UserInputService = game:GetService("UserInputService")
+
+-- Function to handle when the WASD button is touched
+local function onTouch()
+    -- Trigger movement in the desired direction
+    -- Replace "Character" with the name of your character instance
+    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):Move(Vector3.new(0,0,-1))
+end
+
+-- Function to handle when the WASD button is released
+local function onRelease()
+    -- Stop movement, if desired
+end
+
+-- Bind the onTouch function to the Touched event of the WASDButton
+script.Parent.MouseButton1Down:Connect(onTouch)
+
+-- Bind the onRelease function to the MouseButton1Up event of the WASDButton
+script.Parent.MouseButton1Up:Connect(onRelease)
+```
+
+5. Save and close the script.
+
+Now, when you run the game on a mobile device, the WASDButton will appear in the UI. Tapping and holding the button will trigger the movement in the specified direction (in this example, moving backward). Releasing the button can be customized to stop movement or perform any other desired action. Remember to adjust the "Character" name in the code to match the name of your character instance in the game.
